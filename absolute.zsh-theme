@@ -1,7 +1,3 @@
-local _NODE_ICON='\U2B22'
-local _ARROW_ICON='»'
-local _ARROW_ICON='→'
-
 # The prompt
 PROMPT=' $(_user_host)$(_current_path)$(git_prompt_info) $(_arrow) '
 
@@ -13,7 +9,7 @@ function _current_path() {
 }
 
 function _arrow() {
-    echo "%{$fg_bold[blue]%}$_ARROW_ICON%{$reset_color%}"
+    echo "%{$fg_bold[blue]%}→%{$reset_color%}"
 }
 
 function _return_status() {
@@ -24,7 +20,7 @@ function _prompt_nvm() {
   local node_version=$(nvm current)
   [[ -z "${node_version}" ]] || [[ ${node_version} = "none" ]] || [[ ${node_version} = "system" ]] && return
 
-  echo "%{$fg_bold[green]%}‹$_NODE_ICON ${node_version:1}›%{$reset_color%}"
+  echo "%{$fg_bold[green]%}‹\U2B22 ${node_version:1}›%{$reset_color%}"
 }
 
 function _battery_power() {
