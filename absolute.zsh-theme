@@ -2,7 +2,7 @@
 PROMPT=' $(_user_host)$(_current_path)$(git_prompt_info) $(_arrow) '
 
 # The right-hand prompt
-RPROMPT='$(_prompt_nvm)$(git_prompt_status)%{$reset_color%}$(_return_status)$(_battery_power)'
+RPROMPT='$(_prompt_nvm)$(git_prompt_status) $(_battery_power)$(_return_status)'
 
 local _NODE_ICON='\U2B22'
 local _ARROW_ICON='»'
@@ -37,7 +37,7 @@ function _battery_power() {
     [[ bat_percent -gt 0 ]] && local color=red
     [[ bat_percent -gt 10 ]] && local color=yellow
     [[ bat_percent -gt 30 ]] && local color=green
-    echo " %{$fg_bold[$color]%}⚡ $bat_percent%%%{$reset_color%}"
+    echo " %{$fg_bold[$color]%}‹⚡$bat_percent%%›%{$reset_color%}"
 }
 
 function _user_host() {
@@ -55,12 +55,12 @@ ZSH_THEME_GIT_PROMPT_PREFIX="%{$fg_bold[yellow]%}:%{$fg[cyan]%}"
 ZSH_THEME_GIT_PROMPT_SUFFIX="%{$reset_color%}"
 ZSH_THEME_GIT_PROMPT_DIRTY=""
 ZSH_THEME_GIT_PROMPT_CLEAN=""
-ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg[grey]%}◒  "
+ZSH_THEME_GIT_PROMPT_RENAMED=""
 
-ZSH_THEME_GIT_PROMPT_ADDED="%{$fg[green]%} ✚"
+ZSH_THEME_GIT_PROMPT_UNTRACKED="%{$fg_bold[yellow]%} ◒"
+ZSH_THEME_GIT_PROMPT_ADDED="%{$fg_bold[green]%} ✚"
 ZSH_THEME_GIT_PROMPT_MODIFIED="%{$fg[yellow]%} ✹"
-ZSH_THEME_GIT_PROMPT_DELETED="%{$fg[red]%} ✖"
-ZSH_THEME_GIT_PROMPT_RENAMED="%{$fg[magenta]%} ➜"
-ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg[yellow]%} ═"
-ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg[blue]%}⇡ "
-ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg[blue]%}⇣ "
+ZSH_THEME_GIT_PROMPT_DELETED="%{$fg_bold[red]%} ✖"
+ZSH_THEME_GIT_PROMPT_UNMERGED="%{$fg_bold[blue]%} §"
+ZSH_THEME_GIT_PROMPT_AHEAD="%{$fg_bold[cyan]%}⇡ "
+ZSH_THEME_GIT_PROMPT_BEHIND="%{$fg_bold[cyan]%}⇣ "
