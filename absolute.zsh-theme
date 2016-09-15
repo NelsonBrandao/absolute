@@ -1,12 +1,12 @@
+local _NODE_ICON='\U2B22'
+local _ARROW_ICON='»'
+local _ARROW_ICON='→'
+
 # The prompt
 PROMPT=' $(_user_host)$(_current_path)$(git_prompt_info) $(_arrow) '
 
 # The right-hand prompt
 RPROMPT='$(_prompt_nvm)$(git_prompt_status) $(_battery_power)$(_return_status)'
-
-local _NODE_ICON='\U2B22'
-local _ARROW_ICON='»'
-local _ARROW_ICON='→'
 
 function _current_path() {
     echo "%{$fg_bold[green]%}%c%{$reset_color%}"
