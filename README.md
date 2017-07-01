@@ -2,6 +2,8 @@
 
 Absolute is a [oh-my-zsh](https://github.com/robbyrussell/oh-my-zsh) shell theme with a very clean look.
 
+![screenshot](/images/screenshot.png?raw=true)
+
 Features:
 - Shows just the current directory
 - Git branch
