@@ -4,6 +4,10 @@ PROMPT=' $(_user_host)$(_current_path)$(git_prompt_info) $(_arrow) '
 # The right-hand prompt
 RPROMPT='$(_prompt_nvm)$(git_prompt_status) $(_battery_power)$(_return_status)'
 
+function _is_osx() {
+  [[ "$OSTYPE" =~ ^darwin ]] || return 1
+}
+
 function _current_path() {
     echo "%{$fg_bold[green]%}%c%{$reset_color%}"
 }
@@ -24,16 +28,24 @@ function _prompt_nvm() {
 }
 
 function _battery_power() {
-    local acpi=$(acpi)
+  local bat_percent=""
 
-    local state=`echo -n $acpi | awk '{print substr($3,0,length($3)-1)}'`
+  if _is_osx; then
+    local state=`pmset -g batt | grep -Eo "%; \w+;" | cut -d';' -f2 | cut -c2-`
+    [[ ! $state == "discharging" ]] && return
+
+    bat_percent=`pmset -g batt | grep -Eo "\d+%" | cut -d% -f1`
+  else
+    local state=`echo -n acpi | awk '{print substr($3,0,length($3)-1)}'`
     [[ ! $state == "Discharging" ]] && return
 
-    local bat_percent=`echo -n $acpi | awk '{print substr($4,0,length($4)-2)}'`
-    [[ bat_percent -gt 0 ]] && local color=red
-    [[ bat_percent -gt 10 ]] && local color=yellow
-    [[ bat_percent -gt 30 ]] && local color=green
-    echo " %{$fg_bold[$color]%}‹⚡$bat_percent%%›%{$reset_color%}"
+    bat_percent=`echo -n acpi | awk '{print substr($4,0,length($4)-2)}'`
+  fi
+
+  [[ bat_percent -gt 0 ]] && local color=red
+  [[ bat_percent -gt 10 ]] && local color=yellow
+  [[ bat_percent -gt 30 ]] && local color=green
+  echo " %{$fg_bold[$color]%}‹⚡$bat_percent%%›%{$reset_color%}"
 }
 
 function _user_host() {
